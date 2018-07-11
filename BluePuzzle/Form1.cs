@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -190,8 +191,14 @@ namespace BluePuzzle
         {
             if(e.KeyCode == Keys.R)
             {
-                this.mainPannel.Controls.Clear();
+                Control[] c = new Control[this.Level * this.Level]; ;
+                this.mainPannel.Controls.CopyTo(c, 0);
                 this.createAndLayButtons();
+                foreach (var i in c) i.Dispose();
+
+                //this.mainPannel.Controls.Clear();
+                //this.createAndLayButtons();
+
                 this.TotalStep -= this.CurrentStep;
                 this.CurrentStep = 0;
                 Label2.Text = contentOfLabel2.Replace("{0}", this.CurrentStep.ToString());
